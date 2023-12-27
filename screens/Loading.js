@@ -1,14 +1,24 @@
 // screens/LoadingScreen.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, ActivityIndicator, Text, StyleSheet } from 'react-native';
+import { checkFirstLaunch } from '../utils';
 
-const Loading = () => {
-  return (
-    <View style={styles.container}>
-      <ActivityIndicator size="large" />
-      <Text>Uygulama yükleniyor...</Text>
-    </View>
-  );
+const Loading = ({navigation}) => {
+  useEffect(() => {
+    checkFirstLaunch().then(isFirst => {
+      if(isFirst){
+        navigation.replace("Onboarding")
+      }else{
+        navigation.replace("Login")
+      }
+    });
+  }, []);
+    return (
+        <View style={styles.container}>
+            <ActivityIndicator size="large" />
+            <Text>Uygulama yükleniyor...</Text>
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({

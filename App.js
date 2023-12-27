@@ -5,24 +5,11 @@ import Loading from './screens/Loading';
 import { AppStackNavigator, AuthStackNavigator, OnboardingNavigator } from './navigation';
 
 const App = () => {
-  const isLoggedIn = true;
-  const [isLoading, setIsLoading] = useState(true);
-  const [isFirstLaunch, setIsFirstLaunch] = useState(false);
-
-  useEffect(() => {
-    checkFirstLaunch().then(isFirst => {
-      setIsFirstLaunch(isFirst);
-      setIsLoading(false);
-    });
-  }, []);
-
-  if (isLoading) {
-    return <Loading />;
-  }
+  const isLoggedIn = false;
 
   return (
     <NavigationContainer>
-      {isFirstLaunch ? <OnboardingNavigator /> : (isLoggedIn ? <AppStackNavigator /> : <AuthStackNavigator />)}
+      {isLoggedIn ? <AppStackNavigator /> : <AuthStackNavigator />}
     </NavigationContainer>
   );
 };
