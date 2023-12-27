@@ -1,20 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { checkFirstLaunch } from './utils';
+import Loading from './screens/Loading';
+import { AppStackNavigator, AuthStackNavigator, OnboardingNavigator } from './navigation';
 
-export default function App() {
+const App = () => {
+  const isLoggedIn = true;
+  const [isLoading, setIsLoading] = useState(true);
+  const [isFirstLaunch, setIsFirstLaunch] = useState(false);
+
+  useEffect(() => {
+    checkFirstLaunch().then(isFirst => {
+      setIsFirstLaunch(isFirst);
+      setIsLoading(false);
+    });
+  }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      {isFirstLaunch ? <OnboardingNavigator /> : (isLoggedIn ? <AppStackNavigator /> : <AuthStackNavigator />)}
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
