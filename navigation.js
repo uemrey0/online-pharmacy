@@ -27,7 +27,7 @@ export const AuthStackNavigator = () => {
     <AuthStack.Navigator>
       <AuthStack.Screen name="Loading" component={Loading} />
       <AuthStack.Screen name="Onboarding" component={Onboarding} options={{ headerShown: false }} />
-      <AuthStack.Screen name="Login" component={Login} />
+      <AuthStack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
     </AuthStack.Navigator>
   );
 }
