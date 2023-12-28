@@ -16,8 +16,8 @@ const BottomTabNavigator = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Account" component={Account} />
       <Tab.Screen name="Search" component={Search} />
+      <Tab.Screen name="Account" component={Account} />
     </Tab.Navigator>
   );
 }
@@ -35,7 +35,7 @@ export const AuthStackNavigator = () => {
 export const AppStackNavigator = () => {
   return (
     <AppStack.Navigator>
-      <AppStack.Screen name="Main" component={BottomTabNavigator} />
+      <AppStack.Screen name="Main" component={BottomTabNavigator} options={{ headerShown: false }} />
       <AppStack.Screen name="Cart" component={Cart} />
     </AppStack.Navigator>
   );
