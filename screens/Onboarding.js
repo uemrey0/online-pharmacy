@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { Animated, View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 
 // Onboarding içerikleri bir array olarak tanımlayın
 const onboardingData = [
@@ -23,12 +23,23 @@ const onboardingData = [
 
 const Onboarding = ({navigation}) => {
   const [currentStep, setCurrentStep] = useState(0);
+  const fadeAnim = useRef(new Animated.Value(0)).current; // Başlangıç opaklık değeri
+
+  useEffect(() => {
+    // Her adım değişikliğinde opaklık animasyonunu tetikle
+    Animated.timing(fadeAnim, {
+      toValue: 1, // Hedef opaklık değeri
+      duration: 500, // Animasyon süresi
+      useNativeDriver: true, // Performans için native driver kullan
+    }).start();
+  }, [currentStep, fadeAnim]);
 
   const nextStep = () => {
     if (currentStep < onboardingData.length - 1) {
+      fadeAnim.setValue(0); // Opaklık değerini sıfırla
       setCurrentStep(currentStep + 1);
     } else {
-       navigation.replace('Login');
+      navigation.replace('Login');
     }
   };
 
@@ -57,10 +68,13 @@ const Onboarding = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Image source={{uri: image}} style={styles.image} />
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.description}>{description}</Text>
-      {renderPagination()}
+      <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
+        <Image source={{ uri: image }} style={styles.image} onError={(error) => console.log('Görsel yüklenirken bir hata oluştu', error)} />
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.description}>{description}</Text>
+        {renderPagination()}
+      </Animated.View>
+      
       <TouchableOpacity style={styles.button} onPress={nextStep}>
         <Text style={styles.buttonText}>
           {currentStep === onboardingData.length - 1 ? 'Hadi Başlayalım' : 'Devam'}
@@ -72,6 +86,8 @@ const Onboarding = ({navigation}) => {
         </TouchableOpacity>
       )}
     </View>
+
+    
   );
 };
 
@@ -84,9 +100,10 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff', // Arka plan beyaz
     },
     image: {
-      width: '100%', // Resim genişliği ekranın genişliği ile aynı olacak
-      height: 200, // Yüksekliği değiştirin
-      resizeMode: 'contain',
+        width: 300, // Resmin genişliğini sabit bir değer yapın
+        height: 200, // Resmin yüksekliğini sabit bir değer yapın
+        resizeMode: 'contain', // Resmi orantılı olarak sığdır
+        marginBottom: 10,
     },
     title: {
       fontSize: 22, // Başlık font boyutunu ayarlayın
