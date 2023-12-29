@@ -2,7 +2,7 @@ import React, { useState, useRef, useLayoutEffect } from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SliderBox } from "react-native-image-slider-box";
-import { EvilIcons, FontAwesome5 } from '@expo/vector-icons';
+import { EvilIcons, FontAwesome5, Feather } from '@expo/vector-icons';
 
 // Örnek veri yapınız
 const categories = [
@@ -65,76 +65,94 @@ const Home = ({navigation}) => {
         </View>
       </TouchableOpacity>
     );
+
+    const onAddressBarPress = () => {
+      // Burada adres seçim ekranına yönlendirme yapabilirsiniz
+    };
   
     return (
-      <ScrollView style={styles.container}>
-        {/* Hamburger Menü ve Arama Çubuğu */}
-  
-        {/* Slider */}
-        <SliderBox 
-            images={sliderImages}
-            sliderBoxHeight={200}
-            onCurrentImagePressed={index => console.warn(`image ${index} pressed`)}
-            dotColor="#FFEE58"
-            inactiveDotColor="#90A4AE"
-            paginationBoxVerticalPadding={20}
-            autoplay
-            circleLoop
-            resizeMethod={'resize'}
-            resizeMode={'cover'}
-            paginationBoxStyle={{
-                position: "absolute",
-                bottom: 0,
-                padding: 0,
-                alignItems: "center",
-                alignSelf: "center",
-                justifyContent: "center",
-                paddingVertical: 10
-            }}
-            dotStyle={{
-                width: 10,
-                height: 10,
-                borderRadius: 5,
-                marginHorizontal: 0,
-                padding: 0,
-                margin: 0,
-                backgroundColor: "rgba(128, 128, 128, 0.92)"
-            }}
-            ImageComponentStyle={{borderRadius: 25, width: '95%', marginTop: 5}}
-            imageLoadingColor="#2196F3"
-        />
-  
-        {/* Kategori Listesi */}
-        <View style={styles.listHeader}>
-            <Text style={styles.listTitle}>Kategoriler</Text>
-            <TouchableOpacity onPress={() => {}} style={styles.showAllButton}>
-            <Text style={styles.showAllText}>Tümünü gör ></Text>
-            </TouchableOpacity>
+      <>
+        <View style={styles.addressBar}>
+          <TouchableOpacity onPress={onAddressBarPress} style={styles.addressBarButton} activeOpacity={.95}>
+            <Feather name="home" size={24} color="black" />
+            <View style={styles.verticleLine}></View>
+            <Text numberOfLines={1} style={styles.addressBarText}>
+              Yıldız, Eski Konak Sk. 15 ...
+            </Text>
+          </TouchableOpacity>
+          <View style={styles.tvzBar}>
+            <Text style={styles.tvzText}>TVZ</Text>
+            <Text style={styles.tvzText}>10-15 dk</Text>
+          </View>
         </View>
-        <FlatList
-        data={categories}
-        renderItem={renderCategoryItem}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={styles.categoriesList}
-        />
+        <ScrollView style={styles.container}>
+    
+          {/* Slider */}
+          <SliderBox 
+              images={sliderImages}
+              sliderBoxHeight={200}
+              onCurrentImagePressed={index => console.warn(`image ${index} pressed`)}
+              dotColor="#FFEE58"
+              inactiveDotColor="#90A4AE"
+              paginationBoxVerticalPadding={20}
+              autoplay
+              circleLoop
+              resizeMethod={'resize'}
+              resizeMode={'cover'}
+              paginationBoxStyle={{
+                  position: "absolute",
+                  bottom: 0,
+                  padding: 0,
+                  alignItems: "center",
+                  alignSelf: "center",
+                  justifyContent: "center",
+                  paddingVertical: 10
+              }}
+              dotStyle={{
+                  width: 10,
+                  height: 10,
+                  borderRadius: 5,
+                  marginHorizontal: 0,
+                  padding: 0,
+                  margin: 0,
+                  backgroundColor: "rgba(128, 128, 128, 0.92)"
+              }}
+              ImageComponentStyle={{borderRadius: 25, width: '95%', marginTop: 5}}
+              imageLoadingColor="#2196F3"
+          />
+    
+          {/* Kategori Listesi */}
+          <View style={styles.listHeader}>
+              <Text style={styles.listTitle}>Kategoriler</Text>
+              <TouchableOpacity onPress={() => {}} style={styles.showAllButton}>
+              <Text style={styles.showAllText}>Tümünü gör ></Text>
+              </TouchableOpacity>
+          </View>
+          <FlatList
+          data={categories}
+          renderItem={renderCategoryItem}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.categoriesList}
+          />
 
-        
-  
-        {/* Eczaneler Listesi */}
-        <View style={styles.listHeader}>
-            <Text style={styles.listTitle}>Yakındaki Eczaneler</Text>
-            <TouchableOpacity onPress={() => {}} style={styles.showAllButton}>
-            <Text style={styles.showAllText}>Tümünü gör ></Text>
-            </TouchableOpacity>
-        </View>
-        <FlatList
-          data={pharmacies}
-          renderItem={renderPharmacyItem}
-          showsVerticalScrollIndicator={false}
-          style={styles.pharmaciesList}
-        />
-      </ScrollView>
+          
+    
+          {/* Eczaneler Listesi */}
+          <View style={styles.listHeader}>
+              <Text style={styles.listTitle}>Yakındaki Eczaneler</Text>
+              <TouchableOpacity onPress={() => {}} style={styles.showAllButton}>
+              <Text style={styles.showAllText}>Tümünü gör ></Text>
+              </TouchableOpacity>
+          </View>
+          <FlatList
+            data={pharmacies}
+            renderItem={renderPharmacyItem}
+            showsVerticalScrollIndicator={false}
+            style={styles.pharmaciesList}
+          />
+        </ScrollView>
+      </>
     );
   };
 
@@ -230,6 +248,44 @@ const Home = ({navigation}) => {
     showAllText: {
     fontSize: 12,
     color: '#e53935',
+    },
+    addressBar: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: '#FF6666',
+      shadowColor: '#000', // Gölgelendirme
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+    },
+    addressBarButton: {
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: "white",
+      padding: 10, 
+      borderTopRightRadius: 50,
+      borderBottomRightRadius: 50,
+    },
+    addressBarText: {
+      fontSize: 16,
+      color: 'black',
+      marginLeft: 10,
+    },
+    
+    tvzBar: {
+      paddingHorizontal: 10,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    tvzText: {
+      fontSize: 14,
+      color: 'white',
     },
     // Diğer stiller...
   });  
