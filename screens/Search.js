@@ -39,10 +39,6 @@ const Search = ({navigation}) => {
     </TouchableOpacity>
   );
 
-  const renderSeparator = () => {
-    return <View style={styles.separator} />;
-  };
-
   return (
     <View style={styles.container}>
       <SearchBar
@@ -73,8 +69,6 @@ const Search = ({navigation}) => {
           <FlatList
             data={popularProducts}
             renderItem={({ item }) => <ProductCard product={item} />}
-            ItemSeparatorComponent={renderSeparator}
-            contentContainerStyle={styles.listContentContainer}
             horizontal
             keyExtractor={(item) => item.id}
             showsHorizontalScrollIndicator={false}
@@ -121,12 +115,6 @@ const styles = StyleSheet.create({
   },
   tagText: {
     fontSize: 14,
-  },
-  listContentContainer: {
-    padding: 10, // Ya da istediğiniz başka bir değer
-  },
-  separator: {
-    height: 10, // Öğeler arası boşluk
   },
   // Diğer stiller...
 });
