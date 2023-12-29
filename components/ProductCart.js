@@ -7,7 +7,6 @@ const ProductCard = ({ product }) => {
   const heightAnim = useRef(new Animated.Value(0)).current; // Kutunun yükseklik animasyonu
 
   useEffect(() => {
-    console.log(count)
     if (count === 0) {
         Animated.timing(heightAnim, {
             toValue: 0,
