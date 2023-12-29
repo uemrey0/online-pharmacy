@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 150, // Görselin yüksekliği
+    height: 70, // Görselin yüksekliği
     resizeMode: 'contain',
   },
   infoContainer: {
