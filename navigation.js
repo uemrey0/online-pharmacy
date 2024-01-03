@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Cart from './screens/Cart';
 import Home from './screens/Home';
@@ -8,11 +9,40 @@ import Search from './screens/Search';
 import Login from './screens/Login';
 import Onboarding from './screens/Onboarding';
 import Loading from './screens/Loading';
-import Campaign from './screens/Campaign';
+import Campaigns from './screens/Campaigns';
+import Announcements from './screens/Announcements';
 
 const AuthStack = createNativeStackNavigator();
 const AppStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const TopTab = createMaterialTopTabNavigator();
+
+const TopTabNavigator = () => {
+  return (
+    <TopTab.Navigator
+      initialRouteName="Campaigns"
+      screenOptions={{
+        tabBarActiveTintColor: '#FFFFFF',
+        tabBarInactiveTintColor: '#F8F8F8',
+        tabBarLabelStyle: { fontSize: 12, fontWeight: 'bold' },
+        tabBarStyle: { backgroundColor: '#FF5555' },
+        tabBarIndicatorStyle: { backgroundColor: '#FFFFFF', height: 4 },
+        tabBarPressColor: '#FFFFFF',
+      }}
+    >
+      <TopTab.Screen
+        name="Campaigns"
+        component={Campaigns}
+        options={{ tabBarLabel: 'Kampanyalar' }}
+      />
+      <TopTab.Screen
+        name="Announcements"
+        component={Announcements}
+        options={{ tabBarLabel: 'Duyurular' }}
+      />
+    </TopTab.Navigator>
+  );
+};
 
 const BottomTabNavigator = () => {
   return (
@@ -25,7 +55,7 @@ const BottomTabNavigator = () => {
             iconName = focused ? 'home' : 'home-outline';
           } else if (route.name === 'Search') {
             iconName = focused ? 'search' : 'search-outline';
-          } else if (route.name === 'Campaigns') {
+          } else if (route.name === 'CampaignsNavigator') {
             iconName = focused ? 'megaphone' : 'megaphone-outline';
           } else if (route.name === 'Account') {
             iconName = focused ? 'person' : 'person-outline';
@@ -40,7 +70,17 @@ const BottomTabNavigator = () => {
     >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Search" component={Search} />
-      <Tab.Screen name="Campaigns" component={Campaign} />
+      <Tab.Screen name="CampaignsNavigator" component={TopTabNavigator} options={{
+        headerTitleAlign: 'center',
+        headerTitle: 'Kampanyalar',
+        headerStyle: {
+          backgroundColor: '#e53935',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }} />
       <Tab.Screen name="Account" component={Account} />
     </Tab.Navigator>
   );
