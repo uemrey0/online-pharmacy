@@ -28,19 +28,24 @@ const Home = ({navigation}) => {
     const [currentSlide, setCurrentSlide] = useState(0);
 
     useLayoutEffect(() => {
-        navigation.setOptions({
-          headerTitleAlign: 'center', // Başlığı ortala
-          headerTitle: 'Benim Eczanem', // Başlıkta gösterilecek metin
-          headerStyle: {
-            backgroundColor: '#e53935', // Başlık arka plan rengi
-          },
-          headerTintColor: '#fff', // Başlıkta bulunan buton ve başlık metni rengi
-          headerTitleStyle: {
-            fontWeight: 'bold', // Başlık metni kalınlığı
-          },
-          // Eğer başka başlık özellikleri eklemek isterseniz, burada ekleyebilirsiniz.
-        });
-      }, [navigation]);
+      navigation.setOptions({
+        headerTitleAlign: 'center',
+        headerTitle: 'Benim Eczanem',
+        headerStyle: {
+          backgroundColor: '#e53935',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+        headerRight: () => (
+          <TouchableOpacity onPress={() => {navigation.navigate("Cart")}} style={styles.card}>
+            <FontAwesome5 name="shopping-cart" size={24} color="white" />
+            <Text style={styles.cartTotal}>5</Text>
+          </TouchableOpacity>
+        ),
+      });
+    }, [navigation]);
   
     // Slider görsellerini render edecek fonksiyon
     const renderSliderItem = ({ item }) => (
@@ -123,12 +128,12 @@ const Home = ({navigation}) => {
           />
     
           {/* Kategori Listesi */}
-          <View style={styles.listHeader}>
+            <View style={styles.listHeader}>
               <Text style={styles.listTitle}>Kategoriler</Text>
               <TouchableOpacity onPress={() => {}} style={styles.showAllButton}>
-              <Text style={styles.showAllText}>Tümünü gör ></Text>
+              <Text style={styles.showAllText}>Tümünü gör {'>'}</Text>
               </TouchableOpacity>
-          </View>
+            </View>
           <FlatList
           data={categories}
           renderItem={renderCategoryItem}
@@ -140,12 +145,12 @@ const Home = ({navigation}) => {
           
     
           {/* Eczaneler Listesi */}
-          <View style={styles.listHeader}>
+            <View style={styles.listHeader}>
               <Text style={styles.listTitle}>Yakındaki Eczaneler</Text>
               <TouchableOpacity onPress={() => {}} style={styles.showAllButton}>
-              <Text style={styles.showAllText}>Tümünü gör ></Text>
+              <Text style={styles.showAllText}>Tümünü gör {'>'}</Text>
               </TouchableOpacity>
-          </View>
+            </View>
           <FlatList
             data={pharmacies}
             renderItem={renderPharmacyItem}
@@ -287,6 +292,40 @@ const Home = ({navigation}) => {
     tvzText: {
       fontSize: 14,
       color: 'white',
+    },
+    verticleLine: {
+      height: 40,
+      width: 1,
+      backgroundColor: "#909090",
+      marginLeft: 10
+    },
+    card: {
+      backgroundColor: '#fff',
+      borderRadius: 10,
+      padding: 10,
+      marginRight: 10,
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+    },
+    cartTotal: {
+      position: 'absolute',
+      right: 0,
+      top: 0,
+      backgroundColor: '#e53935',
+      color: 'white',
+      fontSize: 12,
+      width: 20,
+      height: 20,
+      borderRadius: 10,
+      textAlign: 'center',
+      paddingTop: 2,
+      fontWeight: 'bold',
     },
     // Diğer stiller...
   });  
