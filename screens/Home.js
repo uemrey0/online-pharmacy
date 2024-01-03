@@ -29,6 +29,7 @@ const Home = ({navigation}) => {
 
     useLayoutEffect(() => {
         navigation.setOptions({
+          headerTitleAlign: 'center', // Başlığı ortala
           headerTitle: 'Benim Eczanem', // Başlıkta gösterilecek metin
           headerStyle: {
             backgroundColor: '#e53935', // Başlık arka plan rengi

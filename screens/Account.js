@@ -15,6 +15,7 @@ const Account = ({ navigation }) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
+      headerTitleAlign: 'center', // Başlığı ortala
       headerTitle: 'Hesabım', // Başlıkta gösterilecek metin
       headerStyle: {
         backgroundColor: '#fff', // Başlık arka plan rengi

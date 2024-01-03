@@ -20,6 +20,7 @@ const Search = ({navigation}) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
+      headerTitleAlign: 'center', // Başlığı ortala
       headerTitle: 'Arama', // Başlıkta gösterilecek metin
       headerStyle: {
         backgroundColor: '#fff', // Başlık arka plan rengi
