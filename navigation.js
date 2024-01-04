@@ -66,6 +66,7 @@ const BottomTabNavigator = () => {
       })}
       tabBarOptions={{
         showLabel: false,
+        activeTintColor: '#FF5555'
       }}
     >
       <Tab.Screen name="Home" component={Home} />
