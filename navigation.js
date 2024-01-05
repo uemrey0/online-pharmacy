@@ -1,4 +1,4 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -11,9 +11,10 @@ import Onboarding from './screens/Onboarding';
 import Loading from './screens/Loading';
 import Campaigns from './screens/Campaigns';
 import Announcements from './screens/Announcements';
+import CampaignDetail from './screens/CampaignDetail';
 
-const AuthStack = createNativeStackNavigator();
-const AppStack = createNativeStackNavigator();
+const AuthStack = createStackNavigator();
+const AppStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
 
@@ -102,6 +103,16 @@ export const AppStackNavigator = () => {
     <AppStack.Navigator>
       <AppStack.Screen name="Main" component={BottomTabNavigator} options={{ headerShown: false }} />
       <AppStack.Screen name="Cart" component={Cart} />
+      <AppStack.Screen 
+        name="CampaignDetail" 
+        component={CampaignDetail}
+        options={{
+          headerShown: true,
+          cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS, // Bu iOS tarzı modal animasyon sağlar
+          gestureEnabled: true, // iOS'ta aşağı kaydırarak kapatmayı etkinleştirir
+          gestureDirection: 'vertical', // Dikey hareketi tanımlar
+        }}
+      />
     </AppStack.Navigator>
   );
 }
