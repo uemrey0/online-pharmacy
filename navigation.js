@@ -12,6 +12,7 @@ import Loading from './screens/Loading';
 import Campaigns from './screens/Campaigns';
 import Announcements from './screens/Announcements';
 import CampaignDetail from './screens/CampaignDetail';
+import AddressSelect from './screens/AddressSelect';
 
 const AuthStack = createStackNavigator();
 const AppStack = createStackNavigator();
@@ -113,6 +114,7 @@ export const AppStackNavigator = () => {
           gestureDirection: 'vertical', // Dikey hareketi tanımlar
         }}
       />
+      <AppStack.Screen name="AddressSelect" component={AddressSelect} />
     </AppStack.Navigator>
   );
 }
