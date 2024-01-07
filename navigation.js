@@ -13,6 +13,7 @@ import Campaigns from './screens/Campaigns';
 import Announcements from './screens/Announcements';
 import CampaignDetail from './screens/CampaignDetail';
 import AddressSelect from './screens/AddressSelect';
+import AddressEdit from './screens/AddressEdit';
 
 const AuthStack = createStackNavigator();
 const AppStack = createStackNavigator();
@@ -115,6 +116,7 @@ export const AppStackNavigator = () => {
         }}
       />
       <AppStack.Screen name="AddressSelect" component={AddressSelect} />
+      <AppStack.Screen name="AddressEdit" component={AddressEdit} />
     </AppStack.Navigator>
   );
 }
